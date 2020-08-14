@@ -21,6 +21,11 @@ struct ContentView: View {
     
     @State private var cards = [Card](repeating: .example, count: 9)
     
+    @State private var isActive = true
+    @State private var timeRemaining = 100
+    
+    let timer = Timer.publish(every: 1, tolerance: 0.5, on: .main, in: .common, options: nil).autoconnect()
+    
     var body: some View {
         ZStack {
             Image("background")
@@ -30,6 +35,18 @@ struct ContentView: View {
             
             // MARK: - All the cards
             VStack {
+                Text("Time: \(timeRemaining)s")
+                    .font(.largeTitle)
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 21)
+                    .padding(.vertical, 6)
+                    .background(
+                        Capsule()
+                            .fill(Color.black)
+                            .opacity(0.72)
+                )
+                    //.border(Color.red, width: 1)
+                
                 ZStack {
                     ForEach(0 ..< cards.count, id: \.self) { index in
                         CardView(card: self.cards[index]) {
@@ -67,6 +84,19 @@ struct ContentView: View {
                     //.border(Color.red, width: 1)
                 }
             }
+        } // ZStack
+            .onReceive(timer) { (time) in
+                guard self.isActive == true else { return }
+                
+                if (self.timeRemaining > 0) {
+                    self.timeRemaining -= 1
+                }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { (_) in
+            self.isActive = false
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { (_) in
+            self.isActive = true
         }
     }
     
