@@ -17,6 +17,8 @@ extension View {
 
 
 struct ContentView: View {
+    @Environment(\.accessibilityDifferentiateWithoutColor) var differentiateWithoutColor
+    
     @State private var cards = [Card](repeating: .example, count: 9)
     
     var body: some View {
@@ -26,6 +28,7 @@ struct ContentView: View {
                 .scaledToFill()
                 .edgesIgnoringSafeArea(.all)
             
+            // MARK: - All the cards
             VStack {
                 ZStack {
                     ForEach(0 ..< cards.count, id: \.self) { index in
@@ -36,6 +39,30 @@ struct ContentView: View {
                         }
                         .stacked(at: index, in: self.cards.count)
                     }
+                }
+            }
+            
+            // Controls for differentiateWithoutColor == true
+            if (differentiateWithoutColor) {
+                VStack {
+                    Spacer()
+                    
+                    HStack {
+                        Image(systemName: "xmark.circle")
+                            .padding()
+                            .background(Color.black.opacity(0.72))
+                            .clipShape(Circle())
+                        
+                        Spacer()
+                        
+                        Image(systemName: "checkmark.circle")
+                            .padding()
+                            .background(Color.black.opacity(0.72))
+                            .clipShape(Circle())
+                    }
+                    .foregroundColor(.white)
+                    .font(.largeTitle)
+                    .padding()
                 }
             }
         }
