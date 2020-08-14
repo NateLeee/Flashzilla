@@ -17,7 +17,8 @@ struct CardView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 25, style: .continuous)
                 .fill(Color.white)
-                .shadow(radius: 10)
+                // .shadow(radius: 9)
+                .shadow(radius: 12, x: 3, y: 2)
             
             VStack {
                 Text(card.prompt)
@@ -28,6 +29,7 @@ struct CardView: View {
                     Text(card.answer)
                         .font(.title)
                         .foregroundColor(.secondary)
+                        .transition(.asymmetric(insertion: .slide, removal: .scale))
                 }
                 
             }
@@ -35,8 +37,11 @@ struct CardView: View {
             .multilineTextAlignment(.center)
         }
         .frame(width: 450, height: 250)
+        .rotation3DEffect(Angle(degrees: 27.0), axis: (x: 1, y: 0, z: 0))
         .gesture(TapGesture().onEnded { (_) in
-            self.isShowingAnswer.toggle()
+            withAnimation {
+                self.isShowingAnswer.toggle()
+            }
         })
     }
 }

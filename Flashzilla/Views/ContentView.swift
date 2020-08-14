@@ -8,14 +8,32 @@
 
 import SwiftUI
 
-
+extension View {
+    func stacked(at position: Int, in total: Int) -> some View {
+        let offset = total - position // 10 - 0 = 10
+        return self.offset(CGSize(width: 0, height: offset * 6))
+    }
+}
 
 
 struct ContentView: View {
-    
+    let cards = [Card](repeating: .example, count: 9)
     
     var body: some View {
-        CardView(card: .example)
+        ZStack {
+            Image("background")
+                .resizable()
+                .scaledToFill()
+            
+            VStack {
+                ZStack {
+                    ForEach(0 ..< cards.count, id: \.self) { index in
+                        CardView(card: self.cards[index])
+                            .stacked(at: index, in: self.cards.count)
+                    }
+                }
+            }
+        }
     }
     
     // Custom funcs

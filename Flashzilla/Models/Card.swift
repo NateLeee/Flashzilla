@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Card {
+struct Card: Hashable {
     let prompt: String
     var answer: String
     
