@@ -8,19 +8,56 @@
 
 import SwiftUI
 
+func withOptionalAnimation<Result>(_ animation: Animation? = .default, _ body: () throws -> Result) rethrows -> Result {
+    if (UIAccessibility.isReduceMotionEnabled) {
+        return try body()
+    } else {
+        return try withAnimation(animation, body)
+    }
+}
+
 
 struct ContentView: View {
+    @Environment(\.accessibilityDifferentiateWithoutColor) var differentiateWithoutColor
+    @Environment(\.accessibilityReduceMotion) var reduceMotion
+    @Environment(\.accessibilityReduceTransparency) var reduceTransparency
+    
     @State private var text = ""
     @State private var yOffset: CGFloat = 0
+    @State private var scale: CGFloat = 1
     
     var body: some View {
         VStack {
             Text("Hello, World!")
+                .scaleEffect(scale)
+                .onTapGesture {
+                    withOptionalAnimation {
+                        self.scale *= 1.5
+                    }
+            }
+            
+            Text("Hello, again!")
                 .padding()
+                .background(reduceTransparency ? Color.black : Color.black.opacity(0.5))
+                .foregroundColor(Color.white)
+                .clipShape(Capsule())
             
             TextField("Test", text: $text)
                 .padding()
+                .textFieldStyle(RoundedBorderTextFieldStyle())
                 .offset(x: 0, y: yOffset)
+            
+            HStack {
+                if differentiateWithoutColor {
+                    Image(systemName: "checkmark.circle")
+                }
+                
+                Text("Success")
+            }
+            .padding()
+            .background(differentiateWithoutColor ? Color.black : Color.green)
+            .foregroundColor(Color.white)
+            .clipShape(Capsule())
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
             print("⬅️ Moving to the background!")
