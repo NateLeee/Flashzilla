@@ -11,7 +11,13 @@ import SwiftUI
 struct CardView: View {
     let card: Card
     
+    var removal: (() -> Void)? = nil
+    
     @State private var isShowingAnswer = false
+    
+    @State private var offset = CGSize.zero
+    
+    
     
     var body: some View {
         ZStack {
@@ -36,12 +42,31 @@ struct CardView: View {
             .multilineTextAlignment(.center)
         }
         .frame(width: 450, height: 250)
-        .rotation3DEffect(Angle(degrees: 27.0), axis: (x: 1, y: 0, z: 0))
-        .gesture(TapGesture().onEnded { (_) in
-            withAnimation {
-                self.isShowingAnswer.toggle()
-            }
-        })
+        .rotationEffect(.degrees(Double(offset.width / 9)))
+        .offset(x: offset.width, y: 0)
+        .opacity(2 - Double(abs(offset.width / 180)))
+            // .rotation3DEffect(Angle(degrees: 27.0), axis: (x: 1, y: 0, z: 0)) // This is causing me trouble!
+            .gesture(
+                DragGesture()
+                    .onChanged { (value) in
+                        self.offset = value.translation
+                }
+                .onEnded { (value) in
+                    if abs(self.offset.width) >= 270 {
+                        // TODO: - Remove the card
+                        print("Remove the card!")
+                        self.removal?()
+                        
+                    } else {
+                        self.offset = .zero
+                    }
+                }
+        )
+            .gesture(TapGesture().onEnded { (_) in
+                withAnimation {
+                    self.isShowingAnswer.toggle()
+                }
+            })
     }
 }
 

@@ -17,7 +17,7 @@ extension View {
 
 
 struct ContentView: View {
-    let cards = [Card](repeating: .example, count: 9)
+    @State private var cards = [Card](repeating: .example, count: 9)
     
     var body: some View {
         ZStack {
@@ -29,8 +29,12 @@ struct ContentView: View {
             VStack {
                 ZStack {
                     ForEach(0 ..< cards.count, id: \.self) { index in
-                        CardView(card: self.cards[index])
-                            .stacked(at: index, in: self.cards.count)
+                        CardView(card: self.cards[index]) {
+                            withAnimation {
+                                self.removeCard(at: index)
+                            }
+                        }
+                        .stacked(at: index, in: self.cards.count)
                     }
                 }
             }
@@ -39,6 +43,9 @@ struct ContentView: View {
     
     // Custom funcs
     
+    func removeCard(at index: Int) {
+        cards.remove(at: index)
+    }
     
 }
 
