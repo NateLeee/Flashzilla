@@ -22,7 +22,7 @@ struct ContentView: View {
     @State private var cards = [Card](repeating: .example, count: 9)
     
     @State private var isActive = true
-    @State private var timeRemaining = 100
+    @State private var timeRemaining = 10
     
     let timer = Timer.publish(every: 1, tolerance: 0.5, on: .main, in: .common, options: nil).autoconnect()
     
@@ -45,7 +45,7 @@ struct ContentView: View {
                             .fill(Color.black)
                             .opacity(0.72)
                 )
-                    //.border(Color.red, width: 1)
+                //.border(Color.red, width: 1)
                 
                 ZStack {
                     ForEach(0 ..< cards.count, id: \.self) { index in
@@ -56,6 +56,20 @@ struct ContentView: View {
                         }
                         .stacked(at: index, in: self.cards.count)
                     }
+                }
+                .allowsHitTesting(self.timeRemaining > 0)
+                
+                if (cards.isEmpty) {
+                    Button(action: {
+                        self.resetCards()
+                    }) {
+                        Text("Restart")
+                            .layoutPriority(1)
+                    }
+                    .padding()
+                    .background(Color.white)
+                    .foregroundColor(.black)
+                    .clipShape(Capsule())
                 }
             }
             
@@ -96,7 +110,10 @@ struct ContentView: View {
             self.isActive = false
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { (_) in
-            self.isActive = true
+            
+            if !self.cards.isEmpty {
+                self.isActive = true
+            }
         }
     }
     
@@ -104,6 +121,16 @@ struct ContentView: View {
     
     func removeCard(at index: Int) {
         cards.remove(at: index)
+        
+        if (cards.isEmpty) {
+            self.isActive = false
+        }
+    }
+    
+    func resetCards() {
+        cards = [Card](repeating: .example, count: 9)
+        timeRemaining = 10
+        isActive = true
     }
     
 }
