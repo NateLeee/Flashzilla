@@ -11,6 +11,8 @@ import SwiftUI
 struct CardView: View {
     let card: Card
     
+    @State private var isShowingAnswer = false
+    
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 25, style: .continuous)
@@ -22,15 +24,20 @@ struct CardView: View {
                     .font(.largeTitle)
                     .foregroundColor(.primary)
                 
-                Text(card.answer)
-                    .font(.title)
-                    .foregroundColor(.secondary)
+                if (isShowingAnswer) {
+                    Text(card.answer)
+                        .font(.title)
+                        .foregroundColor(.secondary)
+                }
                 
             }
             .padding(18)
             .multilineTextAlignment(.center)
         }
         .frame(width: 450, height: 250)
+        .gesture(TapGesture().onEnded { (_) in
+            self.isShowingAnswer.toggle()
+        })
     }
 }
 
