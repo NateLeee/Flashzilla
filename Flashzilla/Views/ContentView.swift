@@ -63,6 +63,8 @@ struct ContentView: View {
                     .foregroundColor(.white)
                     .font(.largeTitle)
                     .padding()
+                    .frame(width: 657)
+                    //.border(Color.red, width: 1)
                 }
             }
         }
