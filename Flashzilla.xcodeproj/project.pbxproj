@@ -28,6 +28,7 @@
 		FA007D7724E62F5A000A8A26 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FA007D7924E62F5A000A8A26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA007D8124E6721E000A8A26 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		FA007D8324E672C3000A8A26 /* Flashzilla.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Flashzilla.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +61,7 @@
 		FA007D6724E62F58000A8A26 /* Flashzilla */ = {
 			isa = PBXGroup;
 			children = (
+				FA007D8324E672C3000A8A26 /* Flashzilla.entitlements */,
 				FA007D6824E62F58000A8A26 /* AppDelegate.swift */,
 				FA007D6A24E62F58000A8A26 /* SceneDelegate.swift */,
 				FA007D7F24E62F6C000A8A26 /* Models */,
@@ -308,6 +310,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Flashzilla/Flashzilla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Flashzilla/Preview Content\"";
 				DEVELOPMENT_TEAM = LQY7L3XZHF;
@@ -319,6 +322,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dev.natelee.Flashzilla;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -328,6 +332,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Flashzilla/Flashzilla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Flashzilla/Preview Content\"";
 				DEVELOPMENT_TEAM = LQY7L3XZHF;
@@ -339,6 +344,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dev.natelee.Flashzilla;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
