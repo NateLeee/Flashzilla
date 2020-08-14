@@ -60,11 +60,11 @@
 			children = (
 				FA007D6824E62F58000A8A26 /* AppDelegate.swift */,
 				FA007D6A24E62F58000A8A26 /* SceneDelegate.swift */,
-				FA007D6F24E62F58000A8A26 /* ContentView.swift */,
+				FA007D7F24E62F6C000A8A26 /* Models */,
+				FA007D8024E62F77000A8A26 /* Views */,
 				FA007D7124E62F5A000A8A26 /* Assets.xcassets */,
 				FA007D7624E62F5A000A8A26 /* LaunchScreen.storyboard */,
 				FA007D7924E62F5A000A8A26 /* Info.plist */,
-				FA007D6C24E62F58000A8A26 /* Flashzilla.xcdatamodeld */,
 				FA007D7324E62F5A000A8A26 /* Preview Content */,
 			);
 			path = Flashzilla;
@@ -76,6 +76,22 @@
 				FA007D7424E62F5A000A8A26 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		FA007D7F24E62F6C000A8A26 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FA007D6C24E62F58000A8A26 /* Flashzilla.xcdatamodeld */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FA007D8024E62F77000A8A26 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FA007D6F24E62F58000A8A26 /* ContentView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
