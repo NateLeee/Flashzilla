@@ -24,6 +24,7 @@ struct ContentView: View {
             Image("background")
                 .resizable()
                 .scaledToFill()
+                .edgesIgnoringSafeArea(.all)
             
             VStack {
                 ZStack {
