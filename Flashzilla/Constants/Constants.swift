@@ -10,4 +10,5 @@ import Foundation
 
 struct Constants {
     static let timeRemaining = 21
+    static let offsetToRemove: Double = 252.0
 }

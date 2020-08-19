@@ -17,6 +17,7 @@ import AudioToolbox
 
 struct CardView: View {
     @Environment(\.accessibilityDifferentiateWithoutColor) var differentiateWithoutColor
+    @Environment(\.accessibilityEnabled) var accessibilityEnabled
     
     let card: Card
     
@@ -49,17 +50,24 @@ struct CardView: View {
                 .shadow(radius: 12, x: 3, y: 2)
             
             VStack {
-                Text(card.prompt)
-                    .font(.largeTitle)
-                    .foregroundColor(.black)
-                
-                if (isShowingAnswer) {
-                    Text(card.answer)
-                        .font(.title)
-                        .foregroundColor(.gray)
-                        .transition(.asymmetric(insertion: .slide, removal: .scale))
+                if accessibilityEnabled {
+                    Text(isShowingAnswer ? card.answer : card.prompt)
+                        .font(.largeTitle)
+                        .foregroundColor(.black)
+                    
+                } else {
+                    Text(card.prompt)
+                        .font(.largeTitle)
+                        .foregroundColor(.black)
+                    
+                    if (isShowingAnswer) {
+                        Text(card.answer)
+                            .font(.title)
+                            .foregroundColor(.gray)
+                            .transition(
+                                .asymmetric(insertion: .slide, removal: .scale))
+                    }
                 }
-                
             }
             .padding(18)
             .multilineTextAlignment(.center)
@@ -69,6 +77,7 @@ struct CardView: View {
         .offset(x: offset.width, y: 0)
         .opacity(2 - Double(abs(offset.width / 180)))
             // .rotation3DEffect(Angle(degrees: 27.0), axis: (x: 1, y: 0, z: 0)) // This is causing me trouble!
+            .accessibility(addTraits: .isButton)
             .gesture(
                 DragGesture()
                     .onChanged { (value) in
@@ -77,13 +86,13 @@ struct CardView: View {
                         self.feedback.prepare()
                 }
                 .onEnded { (value) in
-                    if abs(self.offset.width) >= 270 {
+                    if abs(self.offset.width) >= CGFloat(Constants.offsetToRemove) {
                         if (self.offset.width > 0) {
                             self.feedback.notificationOccurred(.success)
                             // Detect if the iPhone was iPhone 6s || 6s+
                             let modelName = UIDevice.current.modelName
                             if (modelName == "iPhone 6s Plus" || modelName == "iPhone 6s") {
-                                AudioServicesPlaySystemSound(1519)
+                                // AudioServicesPlaySystemSound(1519) // the success haptic could go – that one is likely to be triggered the most often.
                             }
                         } else {
                             self.feedback.notificationOccurred(.error)
