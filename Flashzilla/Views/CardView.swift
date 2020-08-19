@@ -73,6 +73,8 @@ struct CardView: View {
                 DragGesture()
                     .onChanged { (value) in
                         self.offset = value.translation
+                        // Prepare the haptic feedback engine.
+                        self.feedback.prepare()
                 }
                 .onEnded { (value) in
                     if abs(self.offset.width) >= 270 {
@@ -80,22 +82,16 @@ struct CardView: View {
                             self.feedback.notificationOccurred(.success)
                             // Detect if the iPhone was iPhone 6s || 6s+
                             let modelName = UIDevice.current.modelName
-                            
                             if (modelName == "iPhone 6s Plus" || modelName == "iPhone 6s") {
-                                AudioServicesPlaySystemSound(1519) // Actuate `Peek` feedback (weak boom)
+                                AudioServicesPlaySystemSound(1519)
                             }
-                            
-                            
                         } else {
                             self.feedback.notificationOccurred(.error)
                             // Detect if the iPhone was iPhone 6s || 6s+
                             let modelName = UIDevice.current.modelName
-                            
                             if (modelName == "iPhone 6s Plus" || modelName == "iPhone 6s") {
-                                AudioServicesPlaySystemSound(1520) // Actuate `Pop` feedback (strong boom)
+                                AudioServicesPlaySystemSound(1521)
                             }
-                            
-                            
                         }
                         print("Remove the card!")
                         self.removal?()

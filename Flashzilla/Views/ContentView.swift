@@ -23,7 +23,8 @@ struct ContentView: View {
     @State private var cards = [Card](repeating: .example, count: 9)
     
     @State private var isActive = true
-    @State private var timeRemaining = 10
+    @State private var timeRemaining = Constants.timeRemaining
+//    @State private var timeRemaining = 21
     
     let timer = Timer.publish(every: 1, tolerance: 0.5, on: .main, in: .common, options: nil).autoconnect()
     
@@ -130,7 +131,8 @@ struct ContentView: View {
     
     func resetCards() {
         cards = [Card](repeating: .example, count: 9)
-        timeRemaining = 10
+        timeRemaining = Constants.timeRemaining
+//        timeRemaining = 21
         isActive = true
     }
     
