@@ -76,41 +76,40 @@ struct CardView: View {
         .rotationEffect(.degrees(Double(offset.width / 9)))
         .offset(x: offset.width, y: 0)
         .opacity(2 - Double(abs(offset.width / 180)))
-            // .rotation3DEffect(Angle(degrees: 27.0), axis: (x: 1, y: 0, z: 0)) // This is causing me trouble!
-            .accessibility(addTraits: .isButton)
-            .gesture(
-                DragGesture()
-                    .onChanged { (value) in
-                        self.offset = value.translation
-                        // Prepare the haptic feedback engine.
-                        self.feedback.prepare()
-                }
-                .onEnded { (value) in
-                    if abs(self.offset.width) >= CGFloat(Constants.offsetToRemove) {
-                        if (self.offset.width > 0) {
-                            self.feedback.notificationOccurred(.success)
-                            // Detect if the iPhone was iPhone 6s || 6s+
-                            let modelName = UIDevice.current.modelName
-                            if (modelName == "iPhone 6s Plus" || modelName == "iPhone 6s") {
-                                // AudioServicesPlaySystemSound(1519) // the success haptic could go – that one is likely to be triggered the most often.
-                            }
-                        } else {
-                            self.feedback.notificationOccurred(.error)
-                            // Detect if the iPhone was iPhone 6s || 6s+
-                            let modelName = UIDevice.current.modelName
-                            if (modelName == "iPhone 6s Plus" || modelName == "iPhone 6s") {
-                                AudioServicesPlaySystemSound(1521)
-                            }
+        .accessibility(addTraits: .isButton)
+        .gesture(
+            DragGesture()
+                .onChanged { (value) in
+                    self.offset = value.translation
+                    // Prepare the haptic feedback engine.
+                    self.feedback.prepare()
+            }
+            .onEnded { (value) in
+                if abs(self.offset.width) >= CGFloat(Constants.offsetToRemove) {
+                    if (self.offset.width > 0) {
+                        self.feedback.notificationOccurred(.success)
+                        // Detect if the iPhone was iPhone 6s || 6s+
+                        let modelName = UIDevice.current.modelName
+                        if (modelName == "iPhone 6s Plus" || modelName == "iPhone 6s") {
+                            // AudioServicesPlaySystemSound(1519) // the success haptic could go – that one is likely to be triggered the most often.
                         }
-                        print("Remove the card!")
-                        self.removal?()
-                        
                     } else {
-                        withAnimation(.spring()) {
-                            self.offset = .zero
+                        self.feedback.notificationOccurred(.error)
+                        // Detect if the iPhone was iPhone 6s || 6s+
+                        let modelName = UIDevice.current.modelName
+                        if (modelName == "iPhone 6s Plus" || modelName == "iPhone 6s") {
+                            AudioServicesPlaySystemSound(1521)
                         }
                     }
+                    print("Remove the card!")
+                    self.removal?()
+                    
+                } else {
+                    withAnimation(.spring()) {
+                        self.offset = .zero
+                    }
                 }
+            }
         )
             .gesture(TapGesture().onEnded { (_) in
                 withAnimation {
