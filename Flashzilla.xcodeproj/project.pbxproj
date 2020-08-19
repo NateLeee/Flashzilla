@@ -17,6 +17,7 @@
 		FA007D8224E6721E000A8A26 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA007D8124E6721E000A8A26 /* Card.swift */; };
 		FA007D8524E673EA000A8A26 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA007D8424E673EA000A8A26 /* CardView.swift */; };
 		FA007D8724E678D8000A8A26 /* Stacked+Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA007D8624E678D8000A8A26 /* Stacked+Modifier.swift */; };
+		FA01538624ECF81E007BFD5D /* EditCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA01538524ECF81E007BFD5D /* EditCardsView.swift */; };
 		FAABA3DC24ECEFB0001E36EC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAABA3DB24ECEFB0001E36EC /* Constants.swift */; };
 		FAD6E75724ECED9500F3EAAC /* UIDevice+modelName.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD6E75624ECED9500F3EAAC /* UIDevice+modelName.swift */; };
 /* End PBXBuildFile section */
@@ -35,6 +36,7 @@
 		FA007D8324E672C3000A8A26 /* Flashzilla.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Flashzilla.entitlements; sourceTree = "<group>"; };
 		FA007D8424E673EA000A8A26 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		FA007D8624E678D8000A8A26 /* Stacked+Modifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stacked+Modifier.swift"; sourceTree = "<group>"; };
+		FA01538524ECF81E007BFD5D /* EditCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardsView.swift; sourceTree = "<group>"; };
 		FAABA3DB24ECEFB0001E36EC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FAD6E75624ECED9500F3EAAC /* UIDevice+modelName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+modelName.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,6 +109,7 @@
 			children = (
 				FA007D6F24E62F58000A8A26 /* ContentView.swift */,
 				FA007D8424E673EA000A8A26 /* CardView.swift */,
+				FA01538524ECF81E007BFD5D /* EditCardsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 				FA007D8524E673EA000A8A26 /* CardView.swift in Sources */,
 				FAD6E75724ECED9500F3EAAC /* UIDevice+modelName.swift in Sources */,
 				FA007D6B24E62F58000A8A26 /* SceneDelegate.swift in Sources */,
+				FA01538624ECF81E007BFD5D /* EditCardsView.swift in Sources */,
 				FAABA3DC24ECEFB0001E36EC /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

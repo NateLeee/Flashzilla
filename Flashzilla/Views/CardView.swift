@@ -106,7 +106,7 @@ struct CardView: View {
                         self.removal?()
                         
                     } else {
-                        withAnimation {
+                        withAnimation(.spring()) {
                             self.offset = .zero
                         }
                     }
