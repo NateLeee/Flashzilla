@@ -40,6 +40,7 @@ struct EditCardsView: View {
             .listStyle(GroupedListStyle())
             .onAppear(perform: loadData)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     func dismiss() {
