@@ -96,6 +96,7 @@ struct ContentView: View {
             .foregroundColor(.white)
             .font(.largeTitle)
             .padding()
+            .frame(width: 657)
             
             // Controls for differentiateWithoutColor == true
             if (differentiateWithoutColor || accessibilityEnabled) {
