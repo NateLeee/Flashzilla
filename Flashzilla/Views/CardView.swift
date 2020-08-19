@@ -7,6 +7,13 @@
 //
 
 import SwiftUI
+import AudioToolbox
+
+/**
+ AudioServicesPlaySystemSound(1519) // Actuate `Peek` feedback (weak boom)
+ AudioServicesPlaySystemSound(1520) // Actuate `Pop` feedback (strong boom)
+ AudioServicesPlaySystemSound(1521) // Actuate `Nope` feedback (series of three weak booms)
+ */
 
 struct CardView: View {
     @Environment(\.accessibilityDifferentiateWithoutColor) var differentiateWithoutColor
@@ -19,6 +26,7 @@ struct CardView: View {
     
     @State private var offset = CGSize.zero
     
+    @State private var feedback = UINotificationFeedbackGenerator()
     
     
     var body: some View {
@@ -68,6 +76,27 @@ struct CardView: View {
                 }
                 .onEnded { (value) in
                     if abs(self.offset.width) >= 270 {
+                        if (self.offset.width > 0) {
+                            self.feedback.notificationOccurred(.success)
+                            // Detect if the iPhone was iPhone 6s || 6s+
+                            let modelName = UIDevice.current.modelName
+                            
+                            if (modelName == "iPhone 6s Plus" || modelName == "iPhone 6s") {
+                                AudioServicesPlaySystemSound(1519) // Actuate `Peek` feedback (weak boom)
+                            }
+                            
+                            
+                        } else {
+                            self.feedback.notificationOccurred(.error)
+                            // Detect if the iPhone was iPhone 6s || 6s+
+                            let modelName = UIDevice.current.modelName
+                            
+                            if (modelName == "iPhone 6s Plus" || modelName == "iPhone 6s") {
+                                AudioServicesPlaySystemSound(1520) // Actuate `Pop` feedback (strong boom)
+                            }
+                            
+                            
+                        }
                         print("Remove the card!")
                         self.removal?()
                         
